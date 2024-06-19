@@ -1,0 +1,1 @@
+web: gunicorn miviaje.wsgi --log-file -
