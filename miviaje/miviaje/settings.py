@@ -14,6 +14,8 @@ from pathlib import Path
 import dj_database_url
 import django_heroku
 
+
+
 # Configurar Django App para usar la configuración de Heroku
 django_heroku.settings(locals())
 
@@ -22,8 +24,12 @@ django_heroku.settings(locals())
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# La URL que se utilizará cuando se haga referencia a archivos estáticos (desde donde se entregarán)
+STATIC_URL = '/static/'
+
+
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
@@ -34,10 +40,12 @@ STATICFILES_DIRS = (
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vbl))*9)h+*qul#s3@asqsmexyd^sc(f%#l%=(bb^b^!xal-5_'
+#SECRET_KEY = 'django-insecure-vbl))*9)h+*qul#s3@asqsmexyd^sc(f%#l%=(bb^b^!xal-5_'
 
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vbl))*9)h+*qul#s3@asqsmexyd^sc(f%#l%=(bb^b^!xal-5_')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = []
 
@@ -89,9 +97,10 @@ WSGI_APPLICATION = 'miviaje.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # Agregar la configuración de la base de datos usando dj-database-url
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-}
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
