@@ -19,8 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# La URL que se utilizará cuando se haga referencia a archivos estáticos (desde donde se entregarán)
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
@@ -32,11 +30,9 @@ STATICFILES_DIRS = (
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-vbl))*9)h+*qul#s3@asqsmexyd^sc(f%#l%=(bb^b^!xal-5_'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vbl))*9)h+*qul#s3@asqsmexyd^sc(f%#l%=(bb^b^!xal-5_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = []
@@ -87,7 +83,7 @@ WSGI_APPLICATION = 'miviaje.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tu_nombre_de_base_de_datos',
+        'NAME': 'nombre_de_tu_base_de_datos',
         'USER': 'tu_usuario',
         'PASSWORD': 'tu_contraseña',
         'HOST': 'localhost',
@@ -119,11 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 # Whitenoise settings
